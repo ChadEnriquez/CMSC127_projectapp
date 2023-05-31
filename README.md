@@ -1,8 +1,7 @@
 # Expense Tracker
-## CMSC 127 Project
-A single user expense tracker using Python and MariaDB MySQL
+## CMSC 127 PROJECT 
 
-### Collaborators
-- ENRIQUEZ, Chad Andrei A.
-- Penes, Genevieve D.
-- Villacorte, Ryan G.
+### Group 3 - ST1L Members: 
+	- Chad Andrei A. Enriquez
+	- Genevieve D. Penes
+	- Ryan G. Villacorte
