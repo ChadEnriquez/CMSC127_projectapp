@@ -1,7 +1,7 @@
 # Expense Tracker
-## CMSC 127 PROJECT 
+## CMSC 127 S3L PROJECT 
 
-### Group 3 - ST1L Members: 
+### Group 3 - S3L Members: 
 	- Chad Andrei A. Enriquez
 	- Genevieve D. Penes
 	- Ryan G. Villacorte
