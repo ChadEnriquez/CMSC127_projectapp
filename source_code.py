@@ -8,15 +8,6 @@ Ryan G. Villacorte
 import mysql.connector as mariadb
 
 # Connect to MariaDB Platform
-database = mariadb.connect(
-    user="user",
-    password="useruser",
-    host="localhost",
-    port="3306",
-    )
-
-cursor = database.cursor()
-cursor
 
 def main_menu():
     
@@ -33,35 +24,108 @@ def main_menu():
     print("------------------------------------------------")
 
 def adsu_expense():
-    print(" In the making ")
+    print("------------------------------------------------")
+    print("   What would you like to do with an expense? ")
+    print("------------------------------------------------")
+    print("[1] Add an expense")
+    print("[2] Delete an expense")
+    print("[3] Search an expense")
+    print("[4] Update an expense")
+    print("[0] Back to main menu")
+    print("------------------------------------------------")
+    choice = input("Please enter your choice: ")
+
+    if choice == "1":
+        print(" In the making ")
+    elif choice == "2":
+        print(" In the making ")
+    elif choice == "3":
+        print(" In the making ")
+    elif choice == "4":
+        print(" In the making ")
+    elif choice == "0":
+        main_menu()
 
 def adsu_friend():
-    print(" In the making ")
+    print("------------------------------------------------")
+    print("   What would you like to do with a friend? ")
+    print("------------------------------------------------")
+    print("[1] Add a friend")
+    print("[2] Delete a friend")
+    print("[3] Search a friend")
+    print("[4] Update a friend")
+    print("[0] Back to main menu")
+    print("------------------------------------------------")
+    choice = input("Please enter your choice: ")
+
+    if choice == "1":
+        print(" In the making ")
+    elif choice == "2":
+        print(" In the making ")
+    elif choice == "3":
+        print(" In the making ")
+    elif choice == "4":
+        print(" In the making ")
+    elif choice == "0":
+        main_menu()
 
 def adsu_group():
-    print(" In the making ")
+    print("------------------------------------------------")
+    print("   What would you like to do with a group? ")
+    print("------------------------------------------------")
+    print("[1] Add a group")
+    print("[2] Delete a group")
+    print("[3] Search a group")
+    print("[4] Update a group")
+    print("[0] Back to main menu")
+    print("------------------------------------------------")
+    choice = input("Please enter your choice: ")
+
+    if choice == "1":
+        print(" In the making ")
+    elif choice == "2":
+        print(" In the making ")
+    elif choice == "3":
+        print(" In the making ")
+    elif choice == "4":
+        print(" In the making ")
+    elif choice == "0":
+        main_menu()
 
 def payment():
-    print(" In the making ")
+    print("------------------------------------------------")
+    print("  Who would you like to accomplish a payment? ")
+    print("------------------------------------------------")
+    print("[1] A friend")
+    print("[2] A group")
+    print("[0] Back to main menu")
+    print("------------------------------------------------")
+    choice = input("Please enter your choice: ")
+
+    if choice == "1":
+        print(" In the making ")
+    elif choice == "2":
+        print(" In the making ")
+    elif choice == "0":
+        main_menu()
 
 def reports():
-    print(" In the making ")
-
-while True:
-    main_menu()
+    print("------------------------------------------------")
+    print("  What report would you like to see? ")
+    print("------------------------------------------------")
+    print("[1] Expense report")
+    print("[2] Friend report")
+    print("[3] Group report")
+    print("[0] Back to main menu")
+    print("------------------------------------------------")
     choice = input("Please enter your choice: ")
+
     if choice == "1":
-        adsu_expense()
+        print(" In the making ")
     elif choice == "2":
-        adsu_friend()
+        print(" In the making ")
     elif choice == "3":
-        adsu_group()
-    elif choice == "4":
-        payment()
-    elif choice == "5":
-        reports()
+        print(" In the making ")
     elif choice == "0":
-        print("------------------------------------------------")
-        print("       Have a wonderful day! Goodbye! ")
-        print("------------------------------------------------")
-        break
+        main_menu()
+    

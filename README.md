@@ -7,17 +7,32 @@
 	- Ryan G. Villacorte
 
 ### Requirements (Windows):
-	- At least Python version 3.11.3 (latest version as of making this project) 
+	
+	1. At least Python version 3.11.3 (latest version as of making this project) 
     	- Download here:
-		- https://www.python.org/downloads/ 
-	- MySQL Connector for Python 
+		- https://www.python.org/downloads/
+		- if you already have Python installed, check if you have PIP installed
+		- use the commands below on a command terminal to install PIP
+		- curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+		- python get-pip.py
+		- pip --version 
+	
+	2. MySQL Connector for Python 
 		- Download here:
 		- https://dev.mysql.com/downloads/connector/python/
-	- MariaDB
+		- or
+		- use the command below on a command terminal to install MySQL Connector for Python
+		- pip install mysql-connector-python
+  
+	3. MariaDB
     	- Download here:
     	- https://mariadb.com/downloads/
-
+  
 ### Instructions for running:
-	- Install Python, MySQL Connector for Python, and MariaDB
-    	- Depend on the links above for installation instructions
-	- 
+	- Open a command terminal
+	- Navigate to the directory where the project is located
+	- Run the command below
+	- For Windows:
+		- python main.py
+	- For Linux:
+		- python3 main.py
