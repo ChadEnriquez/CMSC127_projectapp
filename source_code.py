@@ -8,16 +8,26 @@ Ryan G. Villacorte
 # Connect to MariaDB Platform
 import mysql.connector as mariadb
 
-mariadb_connection = mariadb.connect(
+database = mariadb.connect(
     host='localhost', 
     user='user', 
-    passwd='pass', 
+    passwd='pass',
+    database='group3' 
     )
 
-create_cursor = mariadb_connection.cursor()
+cursor = database.cursor()
 
-create_cursor.execute("CREATE DATABASE IF NOT EXISTS group3")
-create_cursor.execute("SHOW DATABASES")
+cursor.execute("CREATE DATABASE IF NOT EXISTS group3")
+cursor.execute("SHOW DATABASES")
+
+'''
+For checking connection to database
+for x in cursor:
+    print(x)
+
+'''
+
+cursor.execute("USE group3")
 
 def main_menu():
     

@@ -28,16 +28,13 @@
 	3. MariaDB
     	- Download here:
     	- https://mariadb.com/downloads/
-
-    	- from the root terminal, use the command below to setup database
-    	- CREATE USER 'test'@localhost IDENTIFIED BY 'cmsc127';
-    	- GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost';
   
 ### Instructions for running:
-	- Open a command terminal
-	- Navigate to the directory where the project is located
-	- Run the command below
-	- For Windows:
-		- python main.py
-	- For Linux:
-		- python3 main.py
+	1. from the root terminal (MariaDB), use the command below to setup the database
+    	- CREATE USER 'test'@localhost IDENTIFIED BY 'cmsc127';
+    	- GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost';
+	2. 
+
+### References used:
+	- https://www.youtube.com/watch?v=oDR7k66x-AU&ab_channel=DiscoverPython
+  	- https://www.w3schools.com/python/python_mysql_getstarted.asp
