@@ -111,11 +111,15 @@ def payment():
 
 def reports():
     print("------------------------------------------------")
-    print("  What report would you like to see? ")
+    print("    What report would you like to generate? ")
     print("------------------------------------------------")
-    print("[1] Expense report")
-    print("[2] Friend report")
-    print("[3] Group report")
+    print("[1] View all expenses made within a month")
+    print("[2] View all expenses made with a friend")
+    print("[3] View all expenses made with a group")
+    print("[4] View current balance from all expenses")
+    print("[5] View all friends with outstanding balance")
+    print("[6] View all groups")
+    print("[7] View all groups with an outstanding balance")
     print("[0] Back to main menu")
     print("------------------------------------------------")
     choice = input("Please enter your choice: ")
@@ -126,6 +130,34 @@ def reports():
         print(" In the making ")
     elif choice == "3":
         print(" In the making ")
+    elif choice == "4":
+        print(" In the making ")
+    elif choice == "5":
+        print(" In the making ")
+    elif choice == "6":
+        print(" In the making ")
+    elif choice == "7":
+        print(" In the making ")
     elif choice == "0":
         main_menu()
+    
+while True:
+    main_menu()
+    choice = input("Please enter your choice: ")
+
+    if choice == "1":
+        adsu_expense()
+    elif choice == "2":
+        adsu_friend()
+    elif choice == "3":
+        adsu_group()
+    elif choice == "4":
+        payment()
+    elif choice == "5":
+        reports()
+    elif choice == "0":
+        break
+    else:
+        print("Invalid input. Please try again.")
+        continue
     
