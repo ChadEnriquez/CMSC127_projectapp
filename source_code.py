@@ -5,9 +5,19 @@ Genevieve D. Penes
 Ryan G. Villacorte
 '''
 
+# Connect to MariaDB Platform
 import mysql.connector as mariadb
 
-# Connect to MariaDB Platform
+mariadb_connection = mariadb.connect(
+    host='localhost', 
+    user='user', 
+    passwd='pass', 
+    )
+
+create_cursor = mariadb_connection.cursor()
+
+create_cursor.execute("CREATE DATABASE IF NOT EXISTS group3")
+create_cursor.execute("SHOW DATABASES")
 
 def main_menu():
     
@@ -140,24 +150,26 @@ def reports():
         print(" In the making ")
     elif choice == "0":
         main_menu()
-    
-while True:
-    main_menu()
-    choice = input("Please enter your choice: ")
 
-    if choice == "1":
-        adsu_expense()
-    elif choice == "2":
-        adsu_friend()
-    elif choice == "3":
-        adsu_group()
-    elif choice == "4":
-        payment()
-    elif choice == "5":
-        reports()
-    elif choice == "0":
-        break
-    else:
-        print("Invalid input. Please try again.")
-        continue
-    
+def main_loop():        
+    while True:
+        main_menu()
+        choice = input("Please enter your choice: ")
+
+        if choice == "1":
+            adsu_expense()
+        elif choice == "2":
+            adsu_friend()
+        elif choice == "3":
+            adsu_group()
+        elif choice == "4":
+            payment()
+        elif choice == "5":
+            reports()
+        elif choice == "0":
+            break
+        else:
+            print("Invalid input. Please try again.")
+            continue
+
+main_loop()
