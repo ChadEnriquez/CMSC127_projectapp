@@ -11,6 +11,7 @@
 	1. At least Python version 3.11.3 (latest version as of making this project) 
     	- Download here:
 		- https://www.python.org/downloads/
+
 		- if you already have Python installed, check if you have PIP installed
 		- use the commands below on a command terminal to install PIP
 		- curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
@@ -27,6 +28,10 @@
 	3. MariaDB
     	- Download here:
     	- https://mariadb.com/downloads/
+
+    	- from the root terminal, use the command below to setup database
+    	- CREATE USER 'test'@localhost IDENTIFIED BY 'cmsc127';
+    	- GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost';
   
 ### Instructions for running:
 	- Open a command terminal
