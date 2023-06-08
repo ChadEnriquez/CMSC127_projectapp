@@ -20,3 +20,4 @@
 ### Instructions for running:
 	- Install Python, MySQL Connector for Python, and MariaDB
     	- Depend on the links above for installation instructions
+	- 
