@@ -415,24 +415,24 @@ def DeleteFriend():
 
 def SearchFriend():
     print("\n=======Search a Friend=======")
-    mycursor = database.cursor()
-    mycursor.execute("SELECT * FROM user")
-    result=mycursor.fetchall()
-    mycursor.execute("SELECT COUNT(user_id) FROM user")
-    count=mycursor.fetchone()
-    counter=str(count[0])
+    friendname=input("Enter friend's name you want to search: ")
+    cursor.execute("SELECT * FROM user WHERE first_name=%s", (friendname,))
+    result = cursor.fetchall()
 
-    if counter!="0":
+    if len(result)>0:
+        print("Friend found.")
         for row in result:
-            print("\n=========================")
-            print("User ID: ",(row[0]))
-            print("First name: ",(row[1]))
-            print("Middle initial: ",(row[2]))
-            print("Last name: ",(row[3]))
-            print("Email address: ", (row[4]))
-            print("=========================")
-    else: 
-        print("\n There are no friend at the moment")
+            print("\n===========================")
+            print("User ID: ", (row[0]))
+            print("First Name: ", (row[1]))
+            print("Middle Initial: ", (row[2]))
+            print("Last Name: ", row[3])  
+            print("Email address: ", row[4]) 
+            print("=============================")  
+            print("\n")   
+
+    else:
+        print("\n Friend Not Found. Try Again!")
 
 def UpdateFriend():
     print("\n=======Update a Friend=======")
