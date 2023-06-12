@@ -747,20 +747,38 @@ def reports():
             print("\n")
             for expense in expenses:
                 print(f"Expense ID: {expense[0]}")
-                print(f"Group ID: {expense[6]}")
                 print(f"Date Incurred: {expense[1]}")
                 print(f"Expense Payor's First Name: {expense[2]}")
                 print(f"Expense Payor's ID: {expense[3]}")
                 print(f"Total Amount: {expense[4]}")
                 print(f"Is Settled: {expense[5]}")
+                print(f"Group ID: {expense[6]}")
                 print("------------------------------------------------")
                 print("\n")
         else:
             print("No expenses found.\n")
 
     elif choice == "2":
-        sql_command2 = "SELECT * FROM expense WHERE user_id = %s"
-        print(" In the making ")
+        group_id = input("Enter the group ID: ")
+        print("\n")
+        sql_command = "SELECT * FROM expense WHERE group_id = %s"
+        cursor.execute(sql_command, (group_id,))
+        expenses = cursor.fetchall()
+
+        if len(expenses) > 0 and len(expenses) < 2:
+            print("Expenses made with the specified group:")
+            for expense in expenses:
+                print(f"Expense ID: {expense[0]}")
+                print(f"Date Incurred: {expense[1]}")
+                print(f"Expense Payor's First Name: {expense[2]}")
+                print(f"Expense Payor's ID: {expense[3]}")
+                print(f"Total Amount: {expense[4]}")
+                print(f"Is Settled: {expense[5]}")
+                print(f"Group ID: {expense[6]}")
+                print("------------------------------------------------")
+                print("\n")
+        else:
+            print("No expenses found.\n")
 
     elif choice == "3":
         group_id = input("Enter the group ID: ")
@@ -769,7 +787,7 @@ def reports():
         cursor.execute(sql_command2, (group_id,))
         expenses = cursor.fetchall()
 
-        if len(expenses) > 0:
+        if len(expenses) >= 2:
             print("Expenses made with the specified group:")
             for expense in expenses:
                 print(f"Expense ID: {expense[0]}")
