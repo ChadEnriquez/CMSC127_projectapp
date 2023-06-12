@@ -31,7 +31,7 @@
   
 ### Instructions for running:
 	1. from the root terminal (MariaDB), use the command below to setup the database
-    	- CREATE USER 'test'@localhost IDENTIFIED BY 'cmsc127';
+    	- CREATE USER 'user'@localhost IDENTIFIED BY 'pass';
     	- GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost';
 	2. 
 
