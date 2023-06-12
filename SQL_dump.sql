@@ -9,7 +9,7 @@ USE 'group3';
 
 -- create tables
 -- user
-CREATE TABLE IF NOT EXISTS 'user'(
+CREATE TABLE IF NOT EXISTS user(
   user_id INT(3) NOT NULL AUTO_INCREMENT,
   first_name VARCHAR(25) NOT NULL,
   middle_initial VARCHAR(2), 
