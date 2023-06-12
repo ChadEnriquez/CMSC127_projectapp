@@ -33,7 +33,13 @@
 	1. from the root terminal (MariaDB), use the command below to setup the database
     	- CREATE USER 'user'@localhost IDENTIFIED BY 'pass';
     	- GRANT ALL PRIVILEGES ON *.* TO 'user'@'localhost';
-	2. 
+	2. run the MariaDB MySQL queries in the SQL Dump file
+	3. To run the program, use the command below on a command terminal
+		- python main.py
+	4. Make sure to use the correct credentials for the database
+		- user: user
+		- password: pass
+		- database: group3
 
 ### References used:
 	- https://www.youtube.com/watch?v=oDR7k66x-AU&ab_channel=DiscoverPython
