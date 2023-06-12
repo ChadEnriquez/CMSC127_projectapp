@@ -64,6 +64,8 @@ def adsu_expense():
         update_expense()
     elif choice == "0":
         main_menu()
+    else:
+        print("Invalid choice. Please try again.\n")
 
 def add_expense():
     print("------------------------------------------------")
@@ -117,6 +119,8 @@ def add_expense():
 
     elif choice == "0":
         main_menu()
+    else:
+        print("Invalid choice. Please try again.\n")
 
 def delete_expense():
     print("------------------------------------------------")
@@ -150,6 +154,8 @@ def delete_expense():
 
     elif choice == "0":
         main_menu()
+    else:
+        print("Invalid choice. Please try again.\n")
 
 def search_expense():
     print("------------------------------------------------")
@@ -219,9 +225,10 @@ def search_expense():
             print("No expenses found.\n")
         
     elif choice == "0":
-
         main_menu()
-
+    else:
+        print("Invalid choice. Please try again.\n")
+        
 def update_expense():
     print("------------------------------------------------")
     print("            Update an expense ")
@@ -263,8 +270,9 @@ def update_expense():
 
 
     elif choice == "0":
-
         main_menu()
+    else:
+        print("Invalid choice. Please try again.\n")
 
 def adsu_friend():
     print("------------------------------------------------")
@@ -279,15 +287,229 @@ def adsu_friend():
     choice = input("Please enter your choice: ")
 
     if choice == "1":
-        print(" In the making ")
+        AddFriend()
     elif choice == "2":
-        print(" In the making ")
+        DeleteFriend()
     elif choice == "3":
-        print(" In the making ")
+        SearchFriend()
     elif choice == "4":
-        print(" In the making ")
+        UpdateFriend()
     elif choice == "0":
         main_menu()
+
+
+def Enterfirst_name(): #Function that adds first name
+    firstname = input("\nEnter first name (Maximum of 25 characters): ") #Input from the user
+    if (len(firstname)>25): #length of the first name
+        print("\n First name exceeds the amount of character needed. Try again.")
+        firstname = Enterfirst_name() #Another input
+    elif (firstname== " "): #if the first name is null
+        print("\n First name must no be null. Try again.")
+        firstname = Enterfirst_name() #Another input
+    return firstname #returns First name if the input is valid.
+
+def Entermiddleinit(): #Function that adds middle initial
+    middleinit = input("\nEnter middle initial (Maximum of 2 characters): ") #Input from the user
+    if (len(middleinit)>2): #length of the middle initial
+        print("\n Middle initial exceeds the amount of character needed. Try again.")
+        middleinit = Entermiddleinit() #Another input
+    elif (middleinit== " "): #if the middle initial is null
+        print("\n Friend name must no be null. Try again.")
+        middleinit = Entermiddleinit() #Another input
+    return middleinit #returns middle initial if the input is valid.
+
+def Enterlastname(): #Function that adds last name
+    lastname = input("\nEnter last name (Maximum of 25 characters): ") #Input from the user
+    if (len(lastname)>25): #length of the last name
+        print("\n last name exceeds the amount of character needed. Try again.")
+        lastname = Enterlastname() #Another input
+    elif (lastname== " "): #if the last name is null
+        print("\n last name name must no be null. Try again.")
+        lastname = Entermiddleinit() #Another input
+    return lastname #returns last name if the input is valid.
+
+def EnterEmail(): #Function that adds email address
+    email = input("\nEnter email (Maximum of 50 characters): ") #Input from the user
+    if (len(email)>50): #length of the email address
+        print("\n email exceeds the amount of character needed. Try again.")
+        email = EnterEmail() #Another input
+    elif (email== " "): #if the email address is null
+        print("\n email address must no be null. Try again.")
+        email = EnterEmail() #Another input
+    return email #returns friend name if the input is valid.
+
+def Enteruserid():
+    mycursor = database.cursor()
+    sql_command = "SELECT * FROM user;"
+    mycursor.execute(sql_command)
+    myresult=mycursor.fetchall()
+
+    try:
+        mycursor=database.cursor()
+        sql_command = "SELECT MAX(user_id) AS 'maximum' from user;"
+        mycursor.execute(sql_command)
+        myresult= mycursor.fetchone()
+        myresult=myresult[0]
+        myresult=myresult+1
+        return myresult
+    except:
+        return 1
+
+def AddFriend():
+    print("=========Add a Friend=========") 
+    userID=Enteruserid()
+    firstname=Enterfirst_name()
+    middleinit= Entermiddleinit()
+    lastname=Enterlastname()
+    email=EnterEmail()
+    
+    sql_cmd= "INSERT INTO user (user_id, first_name, middle_initial, last_name, email_address) VALUES (%s, %s, %s, %s, %s)"
+    query_vals = (userID, firstname, middleinit, lastname, email)
+    cursor.execute(sql_cmd, query_vals)
+    database.commit()
+    print("========Successfully added user===========")
+    
+def PrintFriend():
+    mycursor = database.cursor() #execute sql query
+    sql_command = "SELECT * FROM user;"
+    mycursor.execute(sql_command)
+    myresult = mycursor.fetchall()
+    if myresult == None:
+        print("\n No available data")
+        AddFriend()
+    else:
+        arrayFriend = [] 
+        print("\n The following are the friends added")
+        for row in myresult:
+            print("["+str(row[0])+"]", row[1])
+            arrayFriend.append(row[0])
+
+        while(True):
+            try:
+                userID= int(input("\nEnter the userID of the friend to update"))   
+                if userID in arrayFriend:
+                    return userID
+                else:
+                    print("\nThe user_id does not exist in the database")
+            except ValueError:
+                print("\nInvalid user id. Please try again")
+
+def DeleteFriend():
+    print("\n=======Delete a Friend=======")
+    user_id= PrintFriend()
+    mycursor = database.cursor()
+    sql_command =  "DELETE FROM user WHERE user_id= %s"
+    query_vals= (user_id,)
+    mycursor.execute(sql_command,query_vals)
+    result=mycursor.fetchone()
+    if result==None:
+        mycursor=database.cursor()
+        sql_command="DELETE FROM user WHERE user_id=%s"
+        query_vals=(user_id,)
+        mycursor.execute(sql_command, query_vals)
+        database.commit()
+        print("\nSuccessfully deleted friend")
+    else:
+        print("\n The friend cannot be deleted because they have a running transaction")
+        return
+
+def SearchFriend():
+    print("\n=======Search a Friend=======")
+    mycursor = database.cursor()
+    mycursor.execute("SELECT * FROM user")
+    result=mycursor.fetchall()
+    mycursor.execute("SELECT COUNT(user_id) FROM user")
+    count=mycursor.fetchone()
+    counter=str(count[0])
+
+    if counter!="0":
+        for row in result:
+            print("\n=========================")
+            print("User ID: ",(row[0]))
+            print("First name: ",(row[1]))
+            print("Middle initial: ",(row[2]))
+            print("Last name: ",(row[3]))
+            print("Email address: ", (row[4]))
+            print("=========================")
+    else: 
+        print("\n There are no friend at the moment")
+
+def UpdateFriend():
+    print("\n=======Update a Friend=======")
+    user_id = PrintFriend()
+    mycursor = database.cursor()
+    command = "SELECT * FROM user WHERE user_id=%s"
+    query_vals=(user_id,)
+    mycursor.execute(command,query_vals)
+    result=mycursor.fetchone()
+    print("\n====================")
+    print("User ID: ", result[0])
+    print("First Name: ", result[1])
+    print("Middle Initial: ", result[2])
+    print("Last Name: ", result[3])
+    print("Email address: ", result[4])
+
+    print("Select the field you want to update: ")
+    print("1. First name: ")
+    print("2. Middle name: ")
+    print("3. Last name: ")
+    print("4. Email address: ")
+
+    while(True):
+        choice=int(input("\n Update a Friend"))
+        try:
+            if choice in range(1,6):
+                if choice==1:
+                    print("\n The current first name is: ", result[1])
+                    print("\nUpdate the first name as: ")
+                    newchoice=Enterfirst_name()
+                    sqlcmd= "UPDATE user SET first_name=%s WHERE user_id=%s "
+
+                    query_vals=(newchoice, user_id)
+                    mycursor.execute(sqlcmd, query_vals)
+                    database.commit()
+                    print("\n Successfully updated first name")
+                    return
+                elif choice==2:
+                    print("\n The current middle initial is: ", result[2])
+                    print("\nUpdate the middle initial name as: ")
+                    newchoice=Entermiddleinit()
+                    sqlcmd= "UPDATE user SET middle_initial=%s WHERE user_id=%s "
+
+                    query_vals=(newchoice, user_id)
+                    mycursor.execute(sqlcmd, query_vals)
+                    database.commit()
+                    print("\n Successfully updated middle initial")
+                    return
+                elif choice==3:
+                    print("\n The current last name is: ", result[3])
+                    print("\nUpdate the last name as: ")
+                    newchoice=Enterlastname()
+                    sqlcmd= "UPDATE user SET last_name=%s WHERE user_id=%s "
+
+                    query_vals=(newchoice, user_id)
+                    mycursor.execute(sqlcmd, query_vals)
+                    database.commit()
+                    print("\n Successfully updated last name")
+                    return
+                
+                elif choice==4:
+                    print("\n The current email address is: ", result[4])
+                    print("\nUpdate the email as: ")
+                    newchoice=EnterEmail()
+                    sqlcmd= "UPDATE user SET email_address=%s WHERE user_id=%s "
+
+                    query_vals=(newchoice, user_id)
+                    mycursor.execute(sqlcmd, query_vals)
+                    database.commit()
+                    print("\n Successfully updated email")
+                    return
+                
+            else:
+                print("\n Invalid input")
+
+        except ValueError:
+            print("\n Invalid input")    
 
 def adsu_group():
     print("------------------------------------------------")
@@ -302,21 +524,199 @@ def adsu_group():
     choice = input("Please enter your choice: ")
 
     if choice == "1":
-        print(" In the making ")
+        AddGroup()
     elif choice == "2":
-        print(" In the making ")
+        DeleteGroup()
     elif choice == "3":
-        print(" In the making ")
+        SearchGroup()
     elif choice == "4":
-        print(" In the making ")
+        UpdateGroup()
     elif choice == "0":
         main_menu()
+    else:
+        print("Invalid choice. Please try again.\n")
+
+def Entergroupid():
+    mycursor = database.cursor()
+    sql_command = "SELECT * FROM groups;"
+    mycursor.execute(sql_command)
+    myresult=mycursor.fetchall()
+
+    try:
+        mycursor=database.cursor()
+        sql_command = "SELECT MAX(group_id) AS 'maximum' from groups;"
+        mycursor.execute(sql_command)
+        myresult= mycursor.fetchone()
+        myresult=myresult[0]
+        myresult=myresult+1
+        return myresult
+    except:
+        return 1
+
+def Entergroup_name():
+    groupname = input("\nEnter group name (Maximum of 25 characters): ") #Input from the user
+    if (len(groupname)>30): #length of the group name
+        print("\n First name exceeds the amount of character needed. Try again.")
+        groupname = Entergroup_name() #Another input
+    elif (groupname== " "): #if the group name is null
+        print("\n Group name must not be null. Try again.")
+        groupname = Entergroup_name() #Another input
+    return groupname #returns group name if the input is valid.
+  
+
+def Enterno_of_group_members():
+    while True:
+        try:
+            noofgroupmembers = int(input("\nEnter number of group members (integer from 2 to 999): "))
+            if noofgroupmembers < 2 or noofgroupmembers > 999:
+                raise ValueError
+            return noofgroupmembers
+            break
+        except ValueError:
+            print("Invalid input. Please enter an integer from 2 to 999.") 
+
+
+###add group members
+def AddGroup():
+    print("=========Add a Group=========") 
+    groupID=Entergroupid()
+    groupname=Entergroup_name()
+    noofgroupmembers= Enterno_of_group_members() 
+    sql_cmd= "INSERT INTO groups (group_id, group_name, no_of_group_members) VALUES (%s, %s, %s)"
+    query_vals = (groupID, groupname, noofgroupmembers)
+    cursor.execute(sql_cmd, query_vals)
+    database.commit()
+    print("========Successfully added group===========")
+    print("\n")
+    print("\n")
+
+
+def PrintGroup():
+    mycursor = database.cursor() #execute sql query
+    sql_command = "SELECT * FROM groups;"
+    mycursor.execute(sql_command)
+    myresult = mycursor.fetchall()
+    if myresult == None:
+        print("\n No available data")
+        AddGroup()
+    else:
+        arrayGroup = [] 
+        print("\n The following are the groups added:")
+        for row in myresult:
+            print("["+str(row[0])+"]", row[1])
+            arrayGroup.append(row[0])
+
+        while(True):
+            try:
+                groupID= int(input("\nEnter the groupID of the friend to update or delete: "))   
+                if groupID in arrayGroup:
+                    return groupID
+                else:
+                    print("\nThe group id does not exist in the database. Please try again.")
+            except ValueError:
+                print("\nInvalid group id. Please try again")
+
+
+def DeleteGroup():
+    print("\n=======Delete a Group=======")
+    print("=========Delete a Group=========")
+    group_id = input("Enter the group ID to delete: ")
+    sql_command = "DELETE FROM groups WHERE group_id = %s"
+    query_vals = (group_id,)
+    cursor.execute(sql_command, query_vals)
+    database.commit()
+    print("Group deleted successfully!\n")
+    '''
+    group_id= PrintGroup()
+    mycursor = database.cursor()
+    sql_command =  "DELETE FROM groups WHERE group_id= %s"
+    sql_command2 =  "DELETE FROM group_members WHERE group_id= %s"
+    query_vals= (group_id,)
+    mycursor.execute(sql_command, sql_command2, query_vals)
+    result=mycursor.fetchone()
+    if result==None:
+        mycursor=database.cursor()
+        sql_command="DELETE FROM groups WHERE group_id=%s"
+        sql_command2 =  "DELETE FROM group_members WHERE group_id= %s"
+        query_vals=(group_id,)
+        mycursor.execute(sql_command, sql_command2, query_vals)
+        database.commit()
+        print("\nSuccessfully deleted group")
+    else:
+        print("\n The group cannot be deleted because they have a running transaction")
+        return
+    '''
+
+def SearchGroup():
+    print("\n=======Search a Group=======")
+    group_name = input("Enter group name you want to search: ")
+    cursor.execute("SELECT * FROM groups WHERE group_name=%s", (group_name,))
+    result=cursor.fetchall()
+
+    if len(result)>0:
+        print("Group found.")
+        for row in result:
+            print("\n=========================")
+            print("Group ID: ",(row[0]))
+            print("Group name: ",(row[1]))
+            print("Number of group members: ",(row[2]))
+            print("=========================")
+            print("\n")
+            print("\n")
+    else: 
+        print("\n Group not found. Please try again.")
+
+
+def UpdateGroup():
+    print("\n=======Update a Group=======")
+    group_id = input("Enter group id you want to update: ")
+    group_name = input("Enter updated group name: ")
+    no_of_group_members = input("Enter updated number of group members: ")
+    cursor.execute("UPDATE groups SET group_name = %s, no_of_group_members = %s WHERE group_id = %s", (group_name, no_of_group_members, group_id))
+    database.commit()
+
+    print("Group updated successfully!\n")
 
 def payment():
     print("------------------------------------------------")
     print("   What would you like to do with a payment? ")
     print("------------------------------------------------")
+    print("[1] Settle Payment")
+    print("[0] Back to main menu")
+    print("------------------------------------------------")
+    choice = input("Please enter your choice: ")
+    print("\n")
 
+    if choice == "1":
+        print("------------------------------------------------")
+        print("                   Payment")
+        print("------------------------------------------------")
+        user_id = input("Enter the friend's ID: ")
+        payment_amount = float(input("Enter the payment amount: "))
+
+        # Get the current total_amount for the friend
+        cursor.execute("SELECT total_amount FROM expense WHERE user_id = %s", (user_id,))
+        result = cursor.fetchone()
+
+        if result:
+            total_amount = float(result[0])
+
+            # Check if the payment amount is valid
+            if payment_amount <= total_amount:
+                new_total_amount = total_amount - payment_amount
+
+                # Update the total_amount in the database
+                cursor.execute("UPDATE expense SET total_amount = %s WHERE user_id = %s", (new_total_amount, user_id))
+                database.commit()
+
+                print(f"Payment of {payment_amount} successfully deducted from friend's total_amount.")
+            else:
+                print("Invalid payment amount. The payment amount exceeds the friend's total_amount.")
+        else:
+            print("Friend not found.")
+    
+    elif choice == "0":
+        main_menu()
 
 def reports():
     print("------------------------------------------------")
@@ -326,7 +726,7 @@ def reports():
     print("[2] View all expenses made with a friend")
     print("[3] View all expenses made with a group")
     print("[4] View current balance from all expenses")
-    print("[5] View all friends with outstanding balance")
+    print("[5] View all expense with outstanding balance")
     print("[6] View all groups")
     print("[7] View all groups with an outstanding balance")
     print("[0] Back to main menu")
@@ -359,7 +759,7 @@ def reports():
             print("No expenses found.\n")
 
     elif choice == "2":
-        sql_command2 = "SELECT * FROM expense WHERE friend_id = %s"
+        sql_command2 = "SELECT * FROM expense WHERE user_id = %s"
         print(" In the making ")
 
     elif choice == "3":
@@ -394,7 +794,7 @@ def reports():
         result = cursor.fetchall()
 
         if len(result) > 0: 
-            print("Friends with outstanding balance:")
+            print("expense with outstanding balance:")
             for row in result:
                 print(f"Friend: {row[5]}")
                 print(f"Expense ID: {row[3]}")
@@ -403,7 +803,7 @@ def reports():
                 print(f"Total Amount: {row[7]}")
                 print("--------------------")
         else:
-            print("No friends with outstanding balance found.")
+            print("No expense with outstanding balance found.")
 
     elif choice == "6":
         sql_command6 = "SELECT * FROM groups"
