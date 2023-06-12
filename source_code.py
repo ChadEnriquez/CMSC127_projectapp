@@ -785,8 +785,13 @@ def reports():
             print("No expenses found.\n")
 
     elif choice == "4":
-        sql_command4 = "SELECT SUM(total_amount) AS 'Current Balance from All Expenses' FROM expense"
-        print(" In the making ")
+        sql_command4 = "SELECT SUM(total_amount) AS 'Current Balance from All Expenses' FROM expense WHERE is_settled = 'No'"
+        cursor.execute(sql_command4)
+        result = cursor.fetchone()
+        if result[0] is not None:
+            print("Current Balance from All Expenses: $", result[0])
+        else:
+            print("No expenses with 'No' settlement found.")
         
     elif choice == "5":
         sql_command5 = "SELECT * FROM groups NATURAL JOIN expense WHERE is_settled='No'"
