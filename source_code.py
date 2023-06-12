@@ -34,7 +34,8 @@ def main_menu():
     print("[1] Add, Delete, Search, and Update an EXPENSE")
     print("[2] Add, delete, search, and update a FRIEND")
     print("[3] Add, delete, search, and update a GROUP")
-    print("[4] Reports")
+    print("[4] Payments and Settlements")
+    print("[5] Reports")
     print("[0] Exit")
     print("------------------------------------------------")
     print("\n")
@@ -82,15 +83,15 @@ def add_expense():
         print("------------------------------------------------")
 
         # Prompt the user for expense details
-        group_id = input("Enter the group ID: ")
         date_incurred = input("Enter the date incurred (YYYY-MM-DD): ")
         expense_payor_first_name = input("Enter the expense payor's first name: ")
-        expense_payor_id = input("Enter the expense payor's ID: ")
+        user_id = input("Enter the expense payor's ID: ")
         total_amount = input("Enter the total amount: ")
         is_settled = input("Is the expense settled? (Yes/No): ")
+        group_id = input("Enter the group ID: ")
 
         # Execute the SQL query to insert the expense into the database
-        cursor.execute("INSERT INTO expense (group_id, date_incurred, expense_payor_first_name, expense_payor_id, total_amount, is_settled) VALUES (%s, %s, %s, %s, %s, %s)", (group_id, date_incurred, expense_payor_first_name, expense_payor_id, total_amount, is_settled))
+        cursor.execute("INSERT INTO expense (date_incurred, expense_payor_first_name, user_id, total_amount, is_settled, group_id) VALUES (%s, %s, %s, %s, %s, %s)", (date_incurred, expense_payor_first_name, user_id, total_amount, is_settled, group_id))
         database.commit()
 
         print("Expense added successfully!")
@@ -101,15 +102,15 @@ def add_expense():
         print("------------------------------------------------")
 
         # Prompt the user for expense details
-        group_id = input("Enter the group ID: ")
         date_incurred = input("Enter the date incurred (YYYY-MM-DD): ")
         expense_payor_first_name = input("Enter the expense payor's first name: ")
-        expense_payor_id = input("Enter the expense payor's ID: ")
+        user_id = input("Enter the expense payor's ID: ")
         total_amount = input("Enter the total amount: ")
         is_settled = input("Is the expense settled? (Yes/No): ")
+        group_id = input("Enter the group ID: ")
 
         # Execute the SQL query to insert the expense into the database
-        cursor.execute("INSERT INTO expense (group_id, date_incurred, expense_payor_first_name, expense_payor_id, total_amount, is_settled) VALUES (%s, %s, %s, %s, %s, %s)", (group_id, date_incurred, expense_payor_first_name, expense_payor_id, total_amount, is_settled))
+        cursor.execute("INSERT INTO expense (date_incurred, expense_payor_first_name, user_id, total_amount, is_settled, group_id) VALUES (%s, %s, %s, %s, %s, %s)", (date_incurred, expense_payor_first_name, user_id, total_amount, is_settled, group_id))
         database.commit()
 
         print("Expense added successfully!")
@@ -178,12 +179,12 @@ def search_expense():
             print("Expenses found:")
             for expense in expenses:
                 print(f"Expense ID: {expense[0]}")
-                print(f"Group ID: {expense[1]}")
-                print(f"Date Incurred: {expense[2]}")
-                print(f"Expense Payor's First Name: {expense[3]}")
-                print(f"Expense Payor's ID: {expense[4]}")
-                print(f"Total Amount: {expense[5]}")
-                print(f"Is Settled: {expense[6]}")
+                print(f"Date Incurred: {expense[1]}")
+                print(f"Expense Payor's First Name: {expense[2]}")
+                print(f"Expense Payor's ID: {expense[3]}")
+                print(f"Total Amount: {expense[4]}")
+                print(f"Is Settled: {expense[5]}")
+                print(f"Group ID: {expense[6]}")
                 print("------------------------------------------------")
                 print("\n")
         else:
@@ -206,12 +207,12 @@ def search_expense():
             print("Expenses found:")
             for expense in expenses:
                 print(f"Expense ID: {expense[0]}")
-                print(f"Group ID: {expense[1]}")
-                print(f"Date Incurred: {expense[2]}")
-                print(f"Expense Payor's First Name: {expense[3]}")
-                print(f"Expense Payor's ID: {expense[4]}")
-                print(f"Total Amount: {expense[5]}")
-                print(f"Is Settled: {expense[6]}")
+                print(f"Date Incurred: {expense[1]}")
+                print(f"Expense Payor's First Name: {expense[2]}")
+                print(f"Expense Payor's ID: {expense[3]}")
+                print(f"Total Amount: {expense[4]}")
+                print(f"Is Settled: {expense[5]}")
+                print(f"Group ID: {expense[6]}")
                 print("------------------------------------------------")
                 print("\n")
         else:
@@ -311,6 +312,12 @@ def adsu_group():
     elif choice == "0":
         main_menu()
 
+def payment():
+    print("------------------------------------------------")
+    print("   What would you like to do with a payment? ")
+    print("------------------------------------------------")
+
+
 def reports():
     print("------------------------------------------------")
     print("    What  report would you like to generate? ")
@@ -340,12 +347,12 @@ def reports():
             print("\n")
             for expense in expenses:
                 print(f"Expense ID: {expense[0]}")
-                print(f"Group ID: {expense[1]}")
-                print(f"Date Incurred: {expense[2]}")
-                print(f"Expense Payor's First Name: {expense[3]}")
-                print(f"Expense Payor's ID: {expense[4]}")
-                print(f"Total Amount: {expense[5]}")
-                print(f"Is Settled: {expense[6]}")
+                print(f"Group ID: {expense[6]}")
+                print(f"Date Incurred: {expense[1]}")
+                print(f"Expense Payor's First Name: {expense[2]}")
+                print(f"Expense Payor's ID: {expense[3]}")
+                print(f"Total Amount: {expense[4]}")
+                print(f"Is Settled: {expense[5]}")
                 print("------------------------------------------------")
                 print("\n")
         else:
@@ -366,12 +373,12 @@ def reports():
             print("Expenses made with the specified group:")
             for expense in expenses:
                 print(f"Expense ID: {expense[0]}")
-                print(f"Group ID: {expense[1]}")
-                print(f"Date Incurred: {expense[2]}")
-                print(f"Expense Payor's First Name: {expense[3]}")
-                print(f"Expense Payor's ID: {expense[4]}")
-                print(f"Total Amount: {expense[5]}")
-                print(f"Is Settled: {expense[6]}")
+                print(f"Date Incurred: {expense[1]}")
+                print(f"Expense Payor's First Name: {expense[2]}")
+                print(f"Expense Payor's ID: {expense[3]}")
+                print(f"Total Amount: {expense[4]}")
+                print(f"Is Settled: {expense[5]}")
+                print(f"Group ID: {expense[6]}")
                 print("------------------------------------------------")
                 print("\n")
         else:
@@ -445,6 +452,8 @@ def main_loop():
         elif choice == "3":
             adsu_group()
         elif choice == "4":
+            payment()
+        elif choice == "5":
             reports()
         elif choice == "0":
             break
